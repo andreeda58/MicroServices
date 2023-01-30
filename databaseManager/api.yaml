@@ -1,0 +1,126 @@
+openapi: 3.0.0
+info:
+  title: databaseManager service
+  description: Gives access to Elasticsearch database
+  version: 1.0
+
+servers:
+  - url: http://localhost:3002/
+    description: local server
+
+paths:
+  /insertRequest:
+    post:
+      summary: receives 2 numbers, operation and guid and inserts them to database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/insertParams'
+      responses:
+        200:
+          description: Successful Response
+        400:
+          description: User Error
+        500:
+          description: Internal Server Error
+  /updateRequest:
+    put:
+      summary: receives a guid and a result and adds the result to entry in database
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/updateParams'
+      responses:
+        200:
+          description: Successful Response
+        400:
+          description: User Error
+        500:
+          description: Internal Server Error
+  /getRequest/{id}:
+    get:
+      summary: receives a guid and returns a request
+      parameters:
+        - name: id
+          in: path
+          description: uuid
+          required: true
+          schema:
+            type: string
+            format: uuid
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getRequestResponse'
+  /getAllRequests:
+    get:
+      summary: returns all requests
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/getAllRequestsResponse'
+
+components:
+  schemas:
+    insertParams:
+      type: object
+      required:
+        - id
+        - first
+        - second
+        - operation
+      properties:
+        id:
+          type: string
+          format: uuid
+        first:
+          type: integer
+        second:
+          type: integer
+        operation:
+          type: string
+          enum: [+, -, *, /]
+    updateParams:
+      type: object
+      required:
+        - id
+        - result
+      properties:
+        id:
+          type: string
+          format: uuid
+        result:
+          type: number
+          format: float
+    getRequestResponse:
+      type: object
+      required:
+        - first
+        - second
+        - operation
+      properties:
+        first:
+          type: integer
+        second:
+          type: integer
+        operation:
+          type: string
+          enum: [+, -, *, /]
+        result:
+          type: number
+          format: float        
+    getAllRequestsResponse:
+      type: array
+      items:
+        $ref: '#/components/schemas/getRequestResponse'
+

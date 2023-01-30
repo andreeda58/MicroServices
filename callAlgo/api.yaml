@@ -1,0 +1,48 @@
+openapi: 3.0.0
+info:
+  title: CallAlgo service
+  description: Calls algorithm for a request
+  version: 1.0
+
+servers:
+  - url: http://localhost:3001/
+    description: local server
+
+paths:
+  /runRequest:
+    post:
+      summary: receives 2 numbers and do operation on them
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/requestParams'
+      responses:
+        200:
+          description: Successful Response
+        400:
+          description: User Error
+        500:
+          description: Internal Server Error
+
+components:
+  schemas:
+    requestParams:
+      type: object
+      required:
+        - id
+        - first
+        - second
+        - operation
+      properties:
+        id:
+          type: string
+          format: uuid
+        first:
+          type: integer
+        second:
+          type: integer
+        operation:
+          type: string
+          enum: [+, -, *, /]

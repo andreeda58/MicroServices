@@ -1,0 +1,7 @@
+{
+    "rabbitMq": {
+        "url": "amqp://localhost",
+        "inputQueueName": "algorithm_input",
+        "outputQueueName": "algorithm_output"
+    }
+}

@@ -1,0 +1,9 @@
+{
+    "http": {
+        "databaseManager": "http://localhost:3002/updateRequest"
+    },
+    "rabbitMq": {
+        "url": "amqp://localhost",
+        "queueName": "algorithm_output"
+    }
+}

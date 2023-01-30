@@ -1,0 +1,9 @@
+{
+    "rabbitMq": {
+        "url": "amqp://localhost",
+        "queueName": "algorithm_input"
+    },
+    "server": {
+        "port": 3001
+    }
+}

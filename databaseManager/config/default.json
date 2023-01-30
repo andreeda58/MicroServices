@@ -1,0 +1,9 @@
+{
+    "elastic": {
+        "url": "http://localhost:9200",
+        "index": "algo_result"
+    },
+    "server": {
+        "port": 3002
+    }
+}
